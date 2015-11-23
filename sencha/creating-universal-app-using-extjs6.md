@@ -16,22 +16,12 @@
 
 ## Extending the app for Desktop and Phone
 
-### Adding a new classic View
+### Adding a new classic view
 
-### Adding a new classic ViewModel
+### Adding a new modern view
 
-### Adding a new classic ViewController
-
-### Adding a new modern View
-
-### Adding a new modern ViewModel
-
-### Adding a new modern ViewController
-
-### Adding a new common View
-
-### Adding a new common ViewModel
-
-### Adding a new common ViewController
+### Adding a new shared view
 
 ## Running the modified application
+
+## What's next?
