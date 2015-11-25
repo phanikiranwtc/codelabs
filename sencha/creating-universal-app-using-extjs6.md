@@ -4,7 +4,7 @@
 This CodeLab will introduce you to the Universal App concept introduced in Sencha Ext JS 6 and will walk you through the steps required to create, build, deply, and run an universal application.
 
 ### What you'll learn?
-1. What is an Universla App?
+1. What is an Universal App?
 2. What Classic and Modern toolkits are?
 3. How to create a starter project using Sencha Cmd?
 4. How to create modern specific views?
