@@ -42,8 +42,10 @@ It also allow you to dynamically change component configs based on display rules
 
 Since not all components need to respond to dynamic conditions, responsiveConfig is implemented as a mixin as well as a plugin to allow you to add this functionality to the classes or instances that need it which can be enabled by two ways.
 
+```
 Ext.plugin.Responsive:  Adds responsive capabilities to an Ext.Component
 Ext.mixin.Responsive: Adds responsive capabilities to any other class
+```
 
 **3. Which configs can be responsive?**
 
@@ -83,7 +85,7 @@ Assume that we have a situation where we are maintaining the tabPosition( whethe
 Then in this scenario we can make use of responsiveness concept by making the class (which listens for the update of  tabPosition )as responsive. 
 
 **8. Example for making a class responsive :**
-
+```
 Ext.define('MyClass', {
         mixins: ['Ext.mixin.Responsive'],
         config: {
@@ -105,7 +107,7 @@ Ext.define('MyClass', {
         }
 
 });
-
+```
 
 **9. What are rules? :**
 Each key, or “rule”, in the responsiveConfig object is a simple JavaScript expression. 
@@ -123,20 +125,23 @@ We can combine these variables in a variety of ways to create complex responsive
 
 
 Eg:
+
+```
 responsiveConfig: {
-        'width < 768 && tall': {
-                visible: true
-        },
-        'width >= 768': {
-                visible: false
-        }
+	'width < 768 && tall': {
+		visible: true
+	},
+	'width >= 768': {
+		visible: false
+	}
 }
-   
-**10. What is responsiveFormulas :**
+```
+10. What is responsiveFormulas :
  It is common when using responsiveConfig to have recurring expressions that make for complex configurations. 
 
 Using responsiveFormulas allows you to cut down on this repetition by adding new properties to the "scope" for the rules in a responsiveConfig.
 Eg :
+```
   responsiveFormulas: {
             smallView: 'width < 500’,
 			mediumView: 'width >= 500 && width < 800 ',
@@ -148,7 +153,9 @@ Eg :
                  **/
  			}
   		}
+```
       With the above declaration, any `responsiveConfig` can now use these value as below:
+```
 responsiveConfig: {
         'smallView': {
                 hidden: true
@@ -165,6 +172,8 @@ responsiveConfig: {
      }
 
 }
+```
+
 In the above example setting the region of a component and visibility based on the responsive rule criteria.     
   
 
