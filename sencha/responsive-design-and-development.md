@@ -26,12 +26,11 @@ This CodeLab will introduce Designing of Responsive Applications with Ext JS5. W
 
 Let’s look at each point in detail
 
-1. What is responsiveness?
+**1. What is responsiveness?**
 
 Responsiveness is nothing but responding dynamically to changes in screen size or orientation.
 
-2. What is responsiveConfig?
-
+**2. What is responsiveConfig?**
 	
 It's a powerful new feature for making applications respond dynamically to changes in screen size or orientation.
 
@@ -46,21 +45,18 @@ Since not all components need to respond to dynamic conditions, responsiveConfig
 Ext.plugin.Responsive:  Adds responsive capabilities to an Ext.Component
 Ext.mixin.Responsive: Adds responsive capabilities to any other class
 
-3. Which configs can be responsive?
+**3. Which configs can be responsive?**
 
 For a config to participate as responsiveConfig it must have a setter method.
 
-4. How it works?
+**4. How it works?**
 
 Internally, the framework monitors the viewport for resize and orientation change,
 and it re-evaluates all of the responsive rules whenever either orientation change or resize occurs.
 
-
 In this process if any rule is matched then it will call respective config's setters method.
 
-
-
-5. How to make a component responsive:
+**5. How to make a component responsive:**
 
 Ext JS Components do not have responsive features enabled by default, so to make a Component responsive you’ll need to use the responsive plugin.
 
@@ -69,15 +65,13 @@ or can enable the responsiveness for a single Component instance by adding to th
 
 If you add the responsive plugin to your Component config, your Component will gain a “responsiveConfig” configuration option
 
-
-6. Example for making a component responsive :
+**6. Example for making a component responsive :**
 This example will give you brief explanation about responsiveness.
 Where west regoin hides when the width is less than 500.
 https://fiddle.sencha.com/#fiddle/125o
 
 
-
-7. How to make a class responsive:
+**7. How to make a class responsive:**
 
 If we want to make some classes responsive other than Ext.Component then we can make use of mixin “Ext.mixin.Responsive”
 
@@ -88,7 +82,7 @@ Assume that we have a situation where we are maintaining the tabPosition( whethe
 
 Then in this scenario we can make use of responsiveness concept by making the class (which listens for the update of  tabPosition )as responsive. 
 
-8. Example for making a class responsive :
+**8. Example for making a class responsive :**
 
 Ext.define('MyClass', {
         mixins: ['Ext.mixin.Responsive'],
@@ -113,7 +107,7 @@ Ext.define('MyClass', {
 });
 
 
-9. What are rules? :
+**9. What are rules? :**
 Each key, or “rule”, in the responsiveConfig object is a simple JavaScript expression. 
 The following variables are available for use in responsiveConfig rules:
 
@@ -138,7 +132,7 @@ responsiveConfig: {
         }
 }
    
-10. What is responsiveFormulas :
+**10. What is responsiveFormulas :**
  It is common when using responsiveConfig to have recurring expressions that make for complex configurations. 
 
 Using responsiveFormulas allows you to cut down on this repetition by adding new properties to the "scope" for the rules in a responsiveConfig.
