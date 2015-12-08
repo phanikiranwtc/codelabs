@@ -1,7 +1,36 @@
-# Responsive design and development for tabs
+# Responsive design and development for Desktop & Tablet
 
 ## Overview
-This CodeLab will introduce Designing of Responsive Applications with Ext JS5. With the new tablet support in Ext JS 5 comes “responsiveConfig”, a powerful new feature for making applications respond dynamically to changes in screen size or orientation.
+This CodeLab will introduce Designing of Responsive Applications with Ext JS5. With the new tablet support in Ext JS 5 comes ``` responsiveConfig```, a powerful new feature for making applications respond dynamically to changes in screen size or orientation.
+
+### What you'll need?
+1. [Sencha Cmd 5/6](https://www.sencha.com/products/sencha-cmd/)
+2. [Sencha ExtJS 5.x or any latest ext SDK](https://www.sencha.com/products/extjs/#overview)
+3. Google Chrome Browser
+4. [XAMPP - Web Server](https://www.apachefriends.org/index.html)
+
+## Environment Setup
+1. Install Sencha Cmd
+2. Extract Sencha Ext JS SDK
+3. Install XAMPP - this is optional if you intend to use the Web Server built into Sencha Cmd
+
+## Creating the app
+In this section, let us create the starter project for our responsive application.
+
+### Generating project using Sencha Cmd
+1. Create a folder - `myfirstresponsiveapp`
+2. Open Command Prompt or Terminal
+3. Change directory to `myfirstresponsiveapp`
+4. Run the following Sencha Cmd to generate a sample universal application:
+```
+sencha -sdk /path/to/ExtSDK generate app MyApp ./myfirstresponsiveapp
+```
+5. Understand generated folders/files/code
+
+### Run the default generated project
+
+
+
 
 ### What you'll learn?
 1. What is responsiveness?
@@ -20,7 +49,7 @@ This CodeLab will introduce Designing of Responsive Applications with Ext JS5. W
 
 8. Example for making a class responsive
 
-9. What are rules?
+9. What are the rules?
 
 10. What is responsiveFormulas?
 
@@ -85,7 +114,7 @@ Assume that we have a situation where we are maintaining the tabPosition( whethe
 Then in this scenario we can make use of responsiveness concept by making the class (which listens for the update of  tabPosition )as responsive. 
 
 **8. Example for making a class responsive :**
-```
+``` javascript
 Ext.define('MyClass', {
         mixins: ['Ext.mixin.Responsive'],
         config: {
@@ -114,21 +143,21 @@ Each key, or “rule”, in the responsiveConfig object is a simple JavaScript e
 The following variables are available for use in responsiveConfig rules:
 
 
-‘landscape’ – True if the device orientation is landscape (always ‘true’ on desktop devices)
-‘portrait’ – True if the device orientation is portrait (always ‘false’ on desktop devices)
-‘tall’ – True if ‘width’ is less than ‘height’ regardless of device type
-‘wide’ – True if ‘width’ is greater than ‘height’ regardless of device type
-‘width’ – The width of the viewport
-‘height’ – The height of the viewport
+* ‘landscape’ – True if the device orientation is landscape (always ‘true’ on desktop devices)
+* ‘portrait’ – True if the device orientation is portrait (always ‘false’ on desktop devices)
+* ‘tall’ – True if ‘width’ is less than ‘height’ regardless of device type
+* ‘wide’ – True if ‘width’ is greater than ‘height’ regardless of device type
+* ‘width’ – The width of the viewport
+* ‘height’ – The height of the viewport
 
 We can combine these variables in a variety of ways to create complex responsive rules.
 
 
 Eg:
 
-```
+``` javascript
 responsiveConfig: {
-	'width < 768 && tall': {
+	'width < 768 && tall’: {
 		visible: true
 	},
 	'width >= 768': {
@@ -136,12 +165,12 @@ responsiveConfig: {
 	}
 }
 ```
-10. What is responsiveFormulas :
+**10. What is responsiveFormulas :**
  It is common when using responsiveConfig to have recurring expressions that make for complex configurations. 
 
 Using responsiveFormulas allows you to cut down on this repetition by adding new properties to the "scope" for the rules in a responsiveConfig.
 Eg :
-```
+``` json
   responsiveFormulas: {
             smallView: 'width < 500’,
 			mediumView: 'width >= 500 && width < 800 ',
@@ -155,7 +184,7 @@ Eg :
   		}
 ```
       With the above declaration, any `responsiveConfig` can now use these value as below:
-```
+``` json
 responsiveConfig: {
         'smallView': {
                 hidden: true
@@ -176,30 +205,4 @@ responsiveConfig: {
 
 In the above example setting the region of a component and visibility based on the responsive rule criteria.     
   
-
-### What you'll need?
-1. [Sencha Cmd 5/6](https://www.sencha.com/products/sencha-cmd/)
-2. [Sencha ExtJS 5.x or any latest ext SDK](https://www.sencha.com/products/extjs/#overview)
-3. Google Chrome Browser
-4. [XAMPP - Web Server](https://www.apachefriends.org/index.html)
-
-## Environment Setup
-1. Install Sencha Cmd
-2. Extract Sencha Ext JS SDK
-3. Install XAMPP - this is optional if you intend to use the Web Server built into Sencha Cmd
-
-## Creating the app
-In this section, let us create the starter project for our responsive application.
-
-### Generating project using Sencha Cmd
-1. Create a folder - `myfirstresponsiveapp`
-2. Open Command Prompt or Terminal
-3. Change directory to `myfirstresponsiveapp`
-4. Run the following Sencha Cmd to generate a sample universal application:
-```
-sencha -sdk /path/to/ExtSDK generate app MyApp ./myfirstresponsiveapp
-```
-5. Understand generated folders/files/code
-
-### Run the default generated project
 
