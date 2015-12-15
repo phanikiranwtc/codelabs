@@ -155,13 +155,13 @@ We can combine these variables in a variety of ways to create complex responsive
 
 Eg:
 
-``` javascript
+``` json
 responsiveConfig: {
-	'width < 768 && tall’: {
-		visible: true
+	"width < 768 && tall": {
+		"visible": true
 	},
-	'width >= 768': {
-		visible: false
+	"width >= 768": {
+		"visible": false
 	}
 }
 ```
@@ -172,10 +172,10 @@ Using responsiveFormulas allows you to cut down on this repetition by adding new
 Eg :
 ``` json
   responsiveFormulas: {
-            smallView: 'width < 500’,
-			mediumView: 'width >= 500 && width < 800 ',
-			largeView: 'width >= 800 ',
-			customFunction : function(context) {
+            "smallView": "width < 500",
+			"mediumView": "width >= 500 && width < 800 ",
+			"largeView": "width >= 800 ",
+			"customFunction" : function(context) {
 			/**This is the function where we can add our logics
                   *where as context object holds  the various
  *context values
@@ -186,17 +186,17 @@ Eg :
       With the above declaration, any `responsiveConfig` can now use these value as below:
 ``` json
 responsiveConfig: {
-        'smallView': {
+        "smallView": {
                 hidden: true
         },
-        'mediumView': {
-                hidden: false,
-	     region: ‘north’
+        "mediumView": {
+                "hidden": false,
+	     "region": "north"
 
    },
-   'largeView': {
-         hidden: false,
-	     region: ‘west’
+   "largeView": {
+         "hidden": false,
+	     "region": "west"
 
      }
 
