@@ -53,6 +53,8 @@ sencha -sdk /path/to/ExtSDK generate app MyApp ./myfirstresponsiveapp
 
 10. What is responsiveFormulas?
 
+11. How to listen responsiveupdate event?
+
 Let’s look at each point in detail
 
 **1. What is responsiveness?**
@@ -60,7 +62,7 @@ Let’s look at each point in detail
 Responsiveness is nothing but responding dynamically to changes in screen size or orientation.
 
 **2. What is responsiveConfig?**
-	
+  
 It's a powerful new feature for making applications respond dynamically to changes in screen size or orientation.
 
 The responsiveConfig is simply an object with keys that represent conditions under which certain configs will be applied.
@@ -114,6 +116,34 @@ Assume that we have a situation where we are maintaining the tabPosition( whethe
 Then in this scenario we can make use of responsiveness concept by making the class (which listens for the update of  tabPosition )as responsive. 
 
 **8. Example for making a class responsive :**
+We can add ```plugins:"responsive"``` to our component to gain the access of ```responsiveConfig``` configuration option.
+
+``` javascript
+Ext.define('Ext.panel.Panel', {
+        requires : ['Ext.plugin.Responsive'],
+        config: {
+                tabPosition: null
+        },
+        plugins: 'responsive', //
+        responsiveConfig: {
+                wide: {
+                        tabPosition: 'top'
+                },
+                tall: {
+                        tabPosition: 'left'
+                }
+        },
+        constructor: function(config) {
+                this.initConfig(config);
+        },
+        updateTabPosition: function(tabPosition) {
+                console.log(tabPosition); // logs "left" or "top" as screen shape changes between wide and tall
+        }
+
+});
+```
+
+We can add ```Ext.mixin.Responsive``` to mixins to make other class responsive.
 ``` javascript
 Ext.define('MyClass', {
         mixins: ['Ext.mixin.Responsive'],
@@ -137,6 +167,7 @@ Ext.define('MyClass', {
 
 });
 ```
+Let's see what is going on here. When we resize our screen if ```width > height``` the ```wide``` of ```responsiveConfig``` will be fullfilled, then the ```tabPosition``` will be applied as 'top', so it will call the setter called ```setTabPosition``` which will internally call the ```updateTabPosition```. If ```height > width``` then the ```tall``` will be satisfied and the ```updateTabPosition``` will be called with appropriate ```tabPosition``` value.
 
 **9. What are rules? :**
 Each key, or “rule”, in the responsiveConfig object is a simple JavaScript expression. 
@@ -149,6 +180,7 @@ The following variables are available for use in responsiveConfig rules:
 * ‘wide’ – True if ‘width’ is greater than ‘height’ regardless of device type
 * ‘width’ – The width of the viewport
 * ‘height’ – The height of the viewport
+* ‘platform’ – An object containing various booleans describing the platform (see Ext.platformTags). The properties of this object are also available implicitly (without "platform." prefix) but this sub-object may be useful to resolve ambiguity (for example, if one of the responsiveFormulas overlaps and hides any of these properties).
 
 We can combine these variables in a variety of ways to create complex responsive rules.
 
@@ -157,52 +189,86 @@ Eg:
 
 ``` json
 responsiveConfig: {
-	"width < 768 && tall": {
-		"visible": true
-	},
-	"width >= 768": {
-		"visible": false
-	}
+  "width < 768 && tall": {
+    "visible": true
+  },
+  "width >= 768": {
+    "visible": false
+  }
 }
 ```
+
+``` json
+responsiveConfig: {
+  "desktop || width > 800": {
+    "visible": true
+  },
+  "!(desktop || width > 800)": {
+    "visible": false
+  }
+}
+```
+Here the ```desktop``` in the responsiveConfig rule is actually defined in the "platform" (Ext.platformTags). Ext.platformTags contains boolean properties that describe the current device or platform and these can be used in responsiveConfig statements. Please refer ```Ext.platformTags``` for more details.
+
 **10. What is responsiveFormulas :**
  It is common when using responsiveConfig to have recurring expressions that make for complex configurations. 
 
 Using responsiveFormulas allows you to cut down on this repetition by adding new properties to the "scope" for the rules in a responsiveConfig.
 Eg :
-``` json
+``` javascript
   responsiveFormulas: {
-            "smallView": "width < 500",
-			"mediumView": "width >= 500 && width < 800 ",
-			"largeView": "width >= 800 ",
-			"customFunction" : function(context) {
-			/**This is the function where we can add our logics
-                  *where as context object holds  the various
- *context values
-                 **/
- 			}
-  		}
+      "smallView": "width < 500",
+      "mediumView": "width >= 500 && width < 800 ",
+      "largeView": "width >= 800 ",
+      "customFunction" : function(context) {
+          /**This is the function where we can add our logics
+            *where as context object holds  the various
+            *context values
+           **/
+      }
+  }
 ```
       With the above declaration, any `responsiveConfig` can now use these value as below:
 ``` json
 responsiveConfig: {
-        "smallView": {
-                hidden: true
-        },
-        "mediumView": {
-                "hidden": false,
-	     "region": "north"
+    "smallView": {
+        "hidden": true
+    },
+    "mediumView": {
+        "hidden": false,
+        "region": "north"
 
-   },
-   "largeView": {
-         "hidden": false,
-	     "region": "west"
-
-     }
-
+    },
+    "largeView": {
+        "hidden": false,
+        "region": "west"
+    }
 }
 ```
 
 In the above example setting the region of a component and visibility based on the responsive rule criteria.     
-  
 
+**11. How to listen responsiveupdate event?**
+
+Before attaching the event first we have to know how responsive feature is working in ExtJs. 
+
+i. We can make a class responsive by adding suitable ```Ext.plugin.Responsive``` plugin or ```Ext.mixin.Responsive``` mixin and the class will gain the responsiveConfig option.
+
+ii. At the time of class instantiation, the instance will be registered to take part in responsive activity. 
+
+iii. When we resize screen size or orientation then it will initiate.
+
+iv. ```Ext.GlobalEvents``` will fire the beforeresponsiveupdate event.
+
+v. ```Ext.GlobalEvents``` will fire the beginresponsiveupdate event and will set the appropriate responsiveConfig by using the ```setConfig()``` method of the instance.
+
+vi. ```Ext.GlobalEvents``` will fire the responsiveupdate event.
+
+We can catch the responsiveupdate event from the Ext.GlobalEvents and this event will be fired when we change screen size or orientation.
+
+``` javascript
+Ext.GlobalEvents.on("responsiveupdate", function(context){
+  ...
+});
+```
+  
